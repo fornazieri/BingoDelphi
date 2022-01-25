@@ -1,0 +1,42 @@
+unit U_Configuracoes;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons;
+
+type
+  TF_Configuracoes = class(TForm)
+    pnlTitulo: TPanel;
+    Panel1: TPanel;
+    lblSorteados: TLabel;
+    edtTitulo: TEdit;
+    btnSalvar: TBitBtn;
+    btnCancelar: TBitBtn;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  F_Configuracoes: TF_Configuracoes;
+
+implementation
+
+{$R *.dfm}
+
+procedure TF_Configuracoes.btnCancelarClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+procedure TF_Configuracoes.btnSalvarClick(Sender: TObject);
+begin
+  ModalResult := mrOk;
+end;
+
+end.
