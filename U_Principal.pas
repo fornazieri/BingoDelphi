@@ -5,8 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.Samples.Spin, Data.DB, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Buttons, ACBrGIF, dxGDIPlusClasses, Vcl.Themes;
+  Vcl.Samples.Spin, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Buttons, ACBrGIF, dxGDIPlusClasses, Vcl.Themes, Datasnap.DBClient;
 
 type
   TF_Principal = class(TForm)
@@ -84,6 +84,18 @@ begin
   //ACBrGIF1.Active := True;
   pnlNumero.Font.Size := 30;
   pnlNumero.Caption := 'Gerando Numero';
+
+  CDS_Sorteados.Last;
+  if CDS_Sorteados.RecordCount = spinMaximo.Value then
+  begin
+    ShowMessage('Seu bingo ja chegou ao fim! Se ninguem foi sorteado, temos jogadores comendo bronha!!!');
+    pnlNumero.Font.Size := 30;
+    pnlNumero.Caption := 'Fim de jogo!!!';
+    pnlNumeroSorteado.Caption := '';
+    Abort;
+  end;
+  CDS_Sorteados.First;
+
   Timer2.Enabled := True;
   Timer1.Enabled := True;
 end;
@@ -162,11 +174,11 @@ begin
   vFrase := '';
   Timer1.Enabled := False;
 
-  vNumero := Random(spinMaximo.Value);
+  vNumero := Random(spinMaximo.Value + 1);
 
   while (CDS_Sorteados.Locate('NUMERO', vNumero, []) or (vNumero = 0)) do
   begin
-    vNumero := Random(spinMaximo.Value);
+    vNumero := Random(spinMaximo.Value + 1);
   end;
 
   CDS_Sorteados.Insert;
